@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pong Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="pongCanvas" width="800" height="600"></canvas>
+    <div id="score">
+        <span id="scoreLeft">0</span>
+        <span id="scoreRight">0</span>
+    </div>
+    <div id="gameOver" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid black;">
+      <h1 id="winnerText"></h1>
+      <button id="playAgainButton">Play Again</button>
+  </div>
+    <script src="script.js"></script>
+</body>
+</html>
