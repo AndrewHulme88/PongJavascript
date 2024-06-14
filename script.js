@@ -128,9 +128,9 @@ document.addEventListener("keydown", (event) => {
       rightPaddle.goUp();
   } else if (event.key === "ArrowDown") {
       rightPaddle.goDown();
-  } else if (event.key === "w") {
+  } else if (event.key === "w" && gameMode === "2player") {
       leftPaddle.goUp();
-  } else if (event.key === "s") {
+  } else if (event.key === "s" && gameMode === "2player") {
       leftPaddle.goDown();
   }
 });
@@ -139,7 +139,17 @@ document.addEventListener("keydown", (event) => {
 function update() {
   // Update the paddles
   rightPaddle.update();
-  leftPaddle.update();
+  if (gameMode === "2player") {
+      leftPaddle.update();
+  } else {
+      // AI control for the left paddle
+      if (ball.y < leftPaddle.y) {
+          leftPaddle.goUp();
+      } else if (ball.y > leftPaddle.y) {
+          leftPaddle.goDown();
+      }
+      leftPaddle.update();
+  }
 
   // Check for collisions with the top and bottom of the canvas
   if (ball.y < 0 || ball.y > canvas.height) {
@@ -219,4 +229,19 @@ function update() {
 }
 
 // Start the game loop
-update();
+let gameMode;
+const startGameDiv = document.getElementById("startGame");
+const twoPlayerButton = document.getElementById("twoPlayerButton");
+const aiButton = document.getElementById("aiButton");
+
+twoPlayerButton.addEventListener("click", () => {
+  gameMode = "2player";
+  startGameDiv.style.display = "none";
+  update(); // Start the game loop
+});
+
+aiButton.addEventListener("click", () => {
+  gameMode = "ai";
+  startGameDiv.style.display = "none";
+  update(); // Start the game loop
+});
